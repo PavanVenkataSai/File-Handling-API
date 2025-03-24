@@ -1,0 +1,103 @@
+fastapi
+uvicorn
+boto3
+python-multipart
+fastapi-utils
+<mxfile host="app.diagrams.net">
+  <diagram name="RAG Slack Bot Architecture">
+    <mxGraphModel dx="1420" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- User Layer -->
+        <mxCell id="2" value="Slack User Input" style="shape=rectangle;fillColor=#D6EAF8;rounded=1;strokeColor=#2E86C1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Query Processing -->
+        <mxCell id="3" value="Query Pre-Processing" style="shape=rectangle;fillColor=#FAD7A0;rounded=1;strokeColor=#CA6F1E;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- GitHub Retriever -->
+        <mxCell id="5" value="GitHub Code Retriever" style="shape=rectangle;fillColor=#F9E79F;rounded=1;strokeColor=#B7950B;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="150" y="200" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Obsidian Retriever -->
+        <mxCell id="7" value="Obsidian Docs Retriever (Google Drive)" style="shape=rectangle;fillColor=#F9E79F;rounded=1;strokeColor=#B7950B;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="490" y="200" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="3" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Chunking & Metadata -->
+        <mxCell id="9" value="Chunking & Metadata Extraction" style="shape=rectangle;fillColor=#A9DFBF;rounded=1;strokeColor=#229954;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="280" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="10" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="5" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="7" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Embedding -->
+        <mxCell id="12" value="Vector Embedding (Sentence Transformers)" style="shape=rectangle;fillColor=#A9DFBF;rounded=1;strokeColor=#229954;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="360" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="13" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="9" target="12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Vector Store -->
+        <mxCell id="14" value="Vector Store (ChromaDB / Pinecone)" style="shape=rectangle;fillColor=#A9DFBF;rounded=1;strokeColor=#229954;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="15" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="12" target="14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Retriever -->
+        <mxCell id="16" value="Retriever (LangChain) + Optional Reranker" style="shape=rectangle;fillColor=#D7BDE2;rounded=1;strokeColor=#884EA0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="17" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="14" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- RAG Generator -->
+        <mxCell id="18" value="RAG Generator (Claude/Mistral)" style="shape=rectangle;fillColor=#D7BDE2;rounded=1;strokeColor=#884EA0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="600" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="16" target="18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Response Formatter -->
+        <mxCell id="20" value="Response Formatter (JSON Parser)" style="shape=rectangle;fillColor=#D6EAF8;rounded=1;strokeColor=#2E86C1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="680" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="21" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="18" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Slack Bot Response -->
+        <mxCell id="22" value="Slack Bot Response" style="shape=rectangle;fillColor=#D6EAF8;rounded=1;strokeColor=#2E86C1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="760" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="23" style="endArrow=block;strokeColor=#000000;" edge="1" parent="1" source="20" target="22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
